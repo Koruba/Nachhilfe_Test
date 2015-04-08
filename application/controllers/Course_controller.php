@@ -52,6 +52,11 @@ class Course_controller extends CI_Controller {
 			$this->book_course($pCourseNo);				
 			$this->load->view('booking_confirmed');
 		}
+
+		public function testFunktion()
+		{
+			echo "Hallo Welt!";
+		}
 }
 
 ?>
