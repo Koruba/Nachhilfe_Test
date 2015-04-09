@@ -47,6 +47,8 @@ class User extends CI_Controller{
 			
 		}
 		
+		echo "Hallo";
+		
 	}
 	
 }
