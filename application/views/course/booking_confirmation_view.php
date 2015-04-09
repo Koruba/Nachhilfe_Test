@@ -3,5 +3,5 @@
 	echo "Moechten sie wirklich den Kurs ".$course_detail['queryCourseName']." vom ".$course_detail['queryCourseDateFrom']." bis ".$course_detail['queryCourseDateTo']." buchen?";
 ?>
 <form>
-<input type="button" value="Wirklich buchen" onclick="window.location.href='http://localhost/Nachhilfe_Test/index.php/course_controller/confirmed/<?php print $course_detail['queryCourseNo']; ?>'">
+<input type="button" value="Wirklich buchen" onclick="window.location.href='<?php echo base_url().'/index.php/course_controller/confirmed/'.$course_detail['queryCourseNo']; ?>'">
 </form>

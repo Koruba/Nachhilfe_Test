@@ -8,6 +8,12 @@ class User extends CI_Controller{
 		$this->view_data['base_url'] = base_url();
 		
 		$this->load->model('User_model');
+		
+		$this->load->library('template');
+		$this->load->library('session');
+		
+		$this->template->write_view('navigation', 'templates/navigation_template.php');
+		$this->template->write_view('footer', 'templates/footer_template');
 	}
 	
 	function index()
@@ -31,7 +37,9 @@ class User extends CI_Controller{
 		{
 			echo "Fehler aufgetreten";
 		 //	Es gibt Fehler bei der Validierung, wurde nicht gestartet.
-			$this->load->view('view_register', $this->view_data);				
+			//$this->load->view('view_register', $this->view_data);
+			$this->template->write_view('content','view_register');
+			$this->template->render();			
 		} 
 		else
 		{
@@ -45,10 +53,29 @@ class User extends CI_Controller{
 			$this->User_model->register_user($email, $firstname, $lastname, $class, $password);
 			$this->load->view('test');
 			
-		}
-		
-		echo "Hallo";
-		
+		}		
 	}
 	
+	function login()
+	{
+		$this->setUserLogin();					
+		$this->template->write_view('content','user/login_view');	
+		$this->template->render();		
+	}
+	
+	private function setUserLogin()
+	{
+		$loginData = array
+			(
+				'login' => TRUE,
+				'userNo' => 2 
+			);		
+		$this->session->set_userdata($loginData);
+	}
+
+	function logout()
+	{
+		$this->session->sess_destroy();
+		header('Location: http://localhost/Nachhilfe_Test/index.php/course');
+	}
 }
