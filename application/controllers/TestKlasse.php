@@ -6,5 +6,10 @@ class MeineKlasse
 		echo "Hallo Welt";;
 	}
 	
+	public function DiesIstEinTest()
+	{
+		echo "Dies ist ein Test";
+	}
+	
 }
 ?>
