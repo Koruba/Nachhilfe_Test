@@ -33,13 +33,15 @@ class Course_controller extends CI_Controller {
 		public function course($pCourseNo)
 		{
 			$data['course_detail'] = $this->Course_model->get_course_detail($pCourseNo);
-			$this->load->view('course_details', $data);
+			$this->template->write_view('content','course_details', $data);	
+			$this->template->render();
 		}
 		
 		public function confirmation($pCourseNo)
 		{
 			$data['course_detail'] = $this->Course_model->get_course_detail($pCourseNo);
-			$this->load->view('booking_confirmation', $data);
+			$this->template->write_view('content','booking_confirmation', $data);	
+			$this->template->render();
 		}
 		
 		private function book_course($pCourseNo)
@@ -50,7 +52,8 @@ class Course_controller extends CI_Controller {
 		public function confirmed($pCourseNo)
 		{
 			$this->book_course($pCourseNo);				
-			$this->load->view('booking_confirmed');
+			$this->template->write_view('content','booking_confirmed', $data);	
+			$this->template->render();
 		}
 }
 
