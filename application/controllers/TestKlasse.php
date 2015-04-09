@@ -3,12 +3,7 @@ class MeineKlasse
 {
 	public function HalloWelt()
 	{
-		echo "Hallo Welt";
-	}
-	
-	public function Test()
-	{
-		echo "Test.";
+		echo "Hallo Welt";;
 	}
 	
 	public function DiesIstEinTest()
