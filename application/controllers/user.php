@@ -26,6 +26,8 @@ class User extends CI_Controller{
 		//$this->load->view('view_register', $this->view_data);
 		$this->load->library('form_validation');
 		
+		$data['class_list'] = $this->User_model->get_classes();
+		
 		$this->form_validation->set_rules('email', 'E-Mail', 'trim|required|valid_email|is_unique[user.E_Mail_Address]');
 		$this->form_validation->set_rules('firstname', 'Vorname', 'trim|required|alpha|max_length[20]');
 		$this->form_validation->set_rules('lastname', 'Nachname', 'trim|required|alpha|max_length[20]');
@@ -35,10 +37,10 @@ class User extends CI_Controller{
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			echo "Fehler aufgetreten";
+			//echo "Fehler aufgetreten";
 		 //	Es gibt Fehler bei der Validierung, wurde nicht gestartet.
 			//$this->load->view('view_register', $this->view_data);
-			$this->template->write_view('content','view_register');
+			$this->template->write_view('content','user/register_view', $data);
 			$this->template->render();			
 		} 
 		else
@@ -72,7 +74,7 @@ class User extends CI_Controller{
 				'admin' => FALSE 
 			);		
 		$this->session->set_userdata($loginData);
-		header('Location: http://localhost/Nachhilfe_Test/index.php/course');
+		header('Location: '.base_url().'index.php/course');
 	}
 	
 	function setAdminLogin()
@@ -84,12 +86,12 @@ class User extends CI_Controller{
 				'admin' => TRUE 
 			);		
 		$this->session->set_userdata($loginData);
-		header('Location: http://localhost/Nachhilfe_Test/index.php/course');
+		header('Location: '.base_url().'index.php/course');
 	}
 
 	function logout()
 	{
 		$this->session->sess_destroy();
-		header('Location: http://localhost/Nachhilfe_Test/index.php/course');
+		header('Location: '.base_url().'index.php/course');
 	}
 }

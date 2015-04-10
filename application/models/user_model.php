@@ -64,4 +64,12 @@ class User_model extends CI_Model
 		$this->db->update('user', $data); 	
 	}
 	
+	function get_classes()
+	{
+	    $query = $this->db->get('class'); 
+	    foreach($query->result_array() as $row){
+	        $return[$row['Name']] = $row['Name'];
+	    }
+	    return $return;
+	}
 }

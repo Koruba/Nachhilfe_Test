@@ -85,7 +85,7 @@ form li {
 	<li>
 	<label>Klasse</label>
 	<div>
-		<?php echo form_input($class); ?>
+		<?php echo form_dropdown('class', $class_list); ?>
 	</div>	
 	</li>
 	

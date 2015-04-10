@@ -1,6 +1,6 @@
 <form>
-	<input type="button" value="Einloggen (Test)" onclick="window.location.href='http://localhost/Nachhilfe_Test/index.php/user/setuserlogin'">
+	<input type="button" value="Einloggen (Test)" onclick="window.location.href='<?php echo base_url(); ?>/index.php/user/setuserlogin'">
 	<br />
 	<br />
-	<input type="button" value="Einloggen Admin (Test)" onclick="window.location.href='http://localhost/Nachhilfe_Test/index.php/user/setadminlogin'">
+	<input type="button" value="Einloggen Admin (Test)" onclick="window.location.href='<?php echo base_url(); ?>/index.php/user/setadminlogin'">
 </form>
