@@ -39,4 +39,20 @@ if ($this->session->userdata('login') == TRUE)
 else {
 	echo "Eingeloggt: Nein";
 }
+echo "<br />";
+echo "<br />";
+if ($this->session->userdata('admin') == TRUE)
+{
+	echo "Admin: Ja";
+	?>
+	<br />
+	<br />
+	<form>
+		<input type="button" value="Admin Bereich" onclick="window.location.href='http://localhost/Nachhilfe_Test/index.php/admin'">
+	</form>
+	<?php
+}
+else {
+	echo "Admin: Nein";
+}
 ?>

@@ -67,7 +67,7 @@ class Course_controller extends CI_Controller {
 				$this->template->render();
 			}
 			else {
-				$this->overview();		
+				//$this->overview();		
 			}
 		}
 		

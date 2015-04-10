@@ -61,12 +61,9 @@ $maximum_participants = array(
 		</div>	
 	</li>
 	<li>
-		<label>Test</label>
+		<label>Testdatum</label>
 		<div>
-			<select>
-				<option>Option1</option>
-				<option>Option2</option>
-			</select>
+			<input type="date">
 		</div>
 	</li>	
 	<li>

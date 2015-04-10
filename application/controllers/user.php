@@ -58,19 +58,33 @@ class User extends CI_Controller{
 	
 	function login()
 	{
-		$this->setUserLogin();					
+		//$this->setUserLogin();					
 		$this->template->write_view('content','user/login_view');	
 		$this->template->render();		
 	}
 	
-	private function setUserLogin()
+	function setUserLogin()
 	{
 		$loginData = array
 			(
 				'login' => TRUE,
-				'userNo' => 2 
+				'userNo' => 2,
+				'admin' => FALSE 
 			);		
 		$this->session->set_userdata($loginData);
+		header('Location: http://localhost/Nachhilfe_Test/index.php/course');
+	}
+	
+	function setAdminLogin()
+	{
+		$loginData = array
+			(
+				'login' => TRUE,
+				'userNo' => 2,
+				'admin' => TRUE 
+			);		
+		$this->session->set_userdata($loginData);
+		header('Location: http://localhost/Nachhilfe_Test/index.php/course');
 	}
 
 	function logout()

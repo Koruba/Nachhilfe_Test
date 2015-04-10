@@ -1,0 +1,1 @@
+<h1>Der Schueler wurde erfolgreich akzeptiert.</h1>
