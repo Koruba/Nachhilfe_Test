@@ -46,16 +46,22 @@ class Course_controller extends CI_Controller {
 			$this->template->render();
 		}
 		
-		private function book_course($pCourseNo)
-		{
-			$this->Course_model->book_course($pCourseNo, 2);
-		}
-		
 		public function confirmed($pCourseNo)
 		{
-			$this->book_course($pCourseNo);				
-			$this->template->write_view('content','course/booking_confirmed_view', $data);	
-			$this->template->render();
+			if($this->Course_model->book_course($pCourseNo, 2) == FALSE)
+			{
+				$data['error'] = TRUE;	
+				$data['error_message'] = 'Sie haben diesen Kurs bereits gebucht.';
+				$this->template->write_view('content','course/booking_confirmed_view', $data);	
+				$this->template->render();
+			}
+			else{
+				$data['error'] = FALSE;
+				$data['error_message'] = '';
+				$this->template->write_view('content','course/booking_confirmed_view', $data);	
+				$this->template->render();
+			}				
+
 		}
 		
 		public function create()
@@ -81,6 +87,7 @@ class Course_controller extends CI_Controller {
 			//$this->form_validation->set_rules('date_to', 'Datum Bis', 'trim|required|date');
 			$this->form_validation->set_rules('cost', 'Kosten', 'trim|required|numeric');
 			$this->form_validation->set_rules('maximum_participants', 'Maximale Teilnehmerzahle', 'trim|required|numeric');
+			$this->form_validation->set_rules('description', 'Beschreibung', 'required|min_length[10]|max_length[600]');
 			
 			
 			if ($this->form_validation->run() == FALSE)
@@ -96,8 +103,9 @@ class Course_controller extends CI_Controller {
 				$date_to = $this->input->post('date_to');
 				$cost = $this->input->post('cost');
 				$maximum_participants = $this->input->post('maximum_participants');
+				$description = $this->input->post('description');
 				
-				$this->Course_model->createNewCourse($subject, $name, $date_from, $date_to, $cost, $maximum_participants);
+				$this->Course_model->createNewCourse($subject, $name, $date_from, $date_to, $cost, $maximum_participants, $description);
 				$this->overview();
 			}
 		}

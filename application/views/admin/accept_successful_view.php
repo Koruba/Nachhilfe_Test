@@ -1,1 +1,1 @@
-<h1>Der Schueler wurde erfolgreich akzeptiert.</h1>
+<h1>Der <?php echo $type; ?> wurde erfolgreich akzeptiert.</h1>

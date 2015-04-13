@@ -16,6 +16,9 @@
 
 	<link rel="shortcut icon" href="<?php echo base_url()?>public/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="<?= base_url()?>/css/style.css">
+	<script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
+	<script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
+						
 	
 	 <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	

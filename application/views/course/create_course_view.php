@@ -59,18 +59,18 @@ $maximum_participants = array(
 				echo form_dropdown('subject', $subject_list);
 			?>
 		</div>	
-	</li>
-	<li>
-		<label>Testdatum</label>
-		<div>
-			<input type="date">
-		</div>
 	</li>	
 	<li>
 		<label>Name</label>
 		<div>
 			<?php echo form_input($name); ?>
 		</div>	
+	</li>
+	<li>
+		<label>Kursbeschreibung</label>
+		<div>
+			<textarea cols="100" rows="15" name="description"></textarea>
+		</div>
 	</li>	
 	<li>
 		<label>Von Datum</label>
