@@ -1,9 +1,14 @@
+<h1>Liste aller zugelessaner Kurse</h1>
 <table>
 	<tr>
-		<td>KursNr</td>
+		<td>Kurs-Nr</td>
 		<td>Fach</td>
-		<td>Name</td>
-		<td>Link</td>
+		<td>Kurs-Name</td>
+		<td>Anbieter-Nr</td>
+		<td>Kurs-Kosten</td>
+		<td>Datum von</td>
+		<td>Datum bis</td>
+		<td>Detail-Link</td>
 	</tr>
 <?php 
 	foreach($course_list as $Course):		
@@ -12,6 +17,10 @@
 			<td><?php echo $Course['No']; ?></td>
 			<td><?php echo $Course['Subject']; ?></td>
 			<td><?php echo $Course['Name']; ?></td>
+			<td><?php echo $Course['Instructor_No']; ?></td>
+			<td><?php echo $Course['Cost'].'€'; ?></td>
+			<td><?php echo $Course['Date_From']; ?></td>
+			<td><?php echo $Course['Date_To']; ?></td>
 			<td><a href="<?php echo base_url().'index.php/course/detail/'.(string)$Course['No']; ?>">Details</a></td>
 		</tr>
 		<?php

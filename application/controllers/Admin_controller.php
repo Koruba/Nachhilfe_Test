@@ -7,6 +7,7 @@ class Admin_controller extends CI_Controller {
 			parent::__construct();
 			
 			$this->load->model('user_model');
+			$this->load->model('Course_model');
 									
 	        $this->load->helper('url');			
 			$this->load->helper('wizard_helper');
@@ -31,12 +32,12 @@ class Admin_controller extends CI_Controller {
 		public function registrations()
 		{
 			$data['newUsersList'] = $this->user_model->get_new_Users();
-			
+			$data['newCourseList'] = $this->Course_model->get_new_courses();
 			$this->template->write_view('content','admin/admin_start_view', $data);	
 			$this->template->render();
 		}
 		
-		public function accept($pUserNo)
+		public function acceptuser($pUserNo)
 		{
 			$data['UserNo'] = $pUserNo;
 			$data['User_Data'] = $this->user_model->get_user_data($pUserNo);	
@@ -45,7 +46,7 @@ class Admin_controller extends CI_Controller {
 			$this->template->render();
 		}
 		
-		function accepted($pUserNo)
+		function accepteduser($pUserNo)
 		{
 			$this->load->library('form_validation');	
 				
@@ -54,12 +55,38 @@ class Admin_controller extends CI_Controller {
 			if ($this->form_validation->run() == TRUE)
 			{		
 				$this->user_model->accept_user($pUserNo);
-				$this->template->write_view('content', 'admin/accept_successful_view');
+				$data['type'] = "Schüler";
+				$this->template->write_view('content', 'admin/accept_successful_view', $data);
 				$this->template->render();
 			}
 			else {
 				echo "Fehler";
 			}
-		} 
+		}
+		
+		function acceptcourse($pCourseNo)
+		{
+			$data['Course_Data'] = $this->Course_model->get_course_detail($pCourseNo);
+			$this->template->write_view('content','admin/accept_course_view', $data);	
+			$this->template->render();
+		}
+
+		function acceptedcourse($pCourseNo)
+		{
+			$this->load->library('form_validation');	
+				
+			$this->form_validation->set_rules('CourseNo', 'ERROR', 'required');
+			
+			if ($this->form_validation->run() == TRUE)
+			{		
+				$this->Course_model->accept_course($pCourseNo);
+				$data['type'] = "Kurs";
+				$this->template->write_view('content', 'admin/accept_successful_view', $data);
+				$this->template->render();
+			}
+			else {
+				echo "Fehler";
+			}
+		}
 }
 ?>

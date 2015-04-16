@@ -53,9 +53,17 @@ $route['course'] = "Course_controller/overview";
 $route['course/(:any)'] = "Course_controller/$1";
 $route['course/detail/(:num)'] = "Course_controller/detail/$1";
 $route['admin'] = "Admin_controller/registrations";
+<<<<<<< HEAD
 $route['admin/accept/(:num)'] = "Admin_controller/accept/$1";
 $route['admin/accepted/(:num)'] = "Admin_controller/accepted/$1";
 $route['user/(:any)'] = "User_controller/$1";
 //$route['(:any)'] = 'pages/view/$1';
 $route['default_controller'] = 'Course_controller/overview'; // Course_controller/overview
 //$route['user/login'] = "login";
+=======
+$route['admin/acceptuser/(:num)'] = "Admin_controller/acceptuser/$1";
+$route['admin/accepteduser/(:num)'] = "Admin_controller/accepteduser/$1";
+$route['admin/acceptcourse/(:num)'] = "Admin_controller/acceptcourse/$1";
+$route['admin/acceptedcourse/(:num)'] = "Admin_controller/acceptedcourse/$1";
+$route['default_controller'] = 'Course_controller/overview';
+>>>>>>> origin/master

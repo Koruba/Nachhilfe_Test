@@ -19,7 +19,7 @@
 <br />
 <br />
 <?php
-echo form_open('admin/accepted/'.$User_Data['No']);
+echo form_open('admin/accepteduser/'.$User_Data['No']);
 echo form_hidden('UserNo', $User_Data['No']);
 echo form_submit('Akzeptieren', 'Akzeptieren');
 echo form_close();

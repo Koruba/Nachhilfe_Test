@@ -48,7 +48,7 @@ $maximum_participants = array(
 
 <ul>
 	<li>
-		<label>Fach</label>
+		<label>Fach:</label>
 		<div>
 			<?php
 				$locSubject_List = array();
@@ -59,39 +59,39 @@ $maximum_participants = array(
 				echo form_dropdown('subject', $subject_list);
 			?>
 		</div>	
-	</li>
-	<li>
-		<label>Testdatum</label>
-		<div>
-			<input type="date">
-		</div>
 	</li>	
 	<li>
-		<label>Name</label>
+		<label>Name:</label>
 		<div>
 			<?php echo form_input($name); ?>
 		</div>	
+	</li>
+	<li>
+		<label>Kursbeschreibung:</label>
+		<div>
+			<textarea cols="100" rows="15" name="description"></textarea>
+		</div>
 	</li>	
 	<li>
-		<label>Von Datum</label>
+		<label>Von Datum:</label>
 		<div>
 			<?php echo form_input($date_from); ?>
 		</div>	
 	</li>	
 	<li>
-		<label>Bis Datum</label>
+		<label>Bis Datum:</label>
 		<div>
 			<?php echo form_input($date_to); ?>
 		</div>	
 	</li>	
 	<li>
-		<label>Kosten</label>
+		<label>Kosten:</label>
 		<div>
 			<?php echo form_input($cost); ?>
 		</div>	
 	</li>	
 	<li>
-		<label>Maximale Teilnehmerzahl</label>
+		<label>Maximale Teilnehmerzahl:</label>
 		<div>
 			<?php echo form_input($maximum_participants); ?>
 		</div>	
