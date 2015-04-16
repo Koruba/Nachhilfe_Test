@@ -72,4 +72,24 @@ class User_model extends CI_Model
 	    }
 	    return $return;
 	}
+
+	function login($email, $password)
+ 	{
+		$this -> db -> select('No, E_Mail_Address, Password');
+		$this -> db -> from('user');
+		$this -> db -> where('E_Mail_Address', $email);
+		$this -> db -> where('Password', sha1($password));
+		$this -> db -> limit(1);
+ 
+		$query = $this -> db -> get();
+		 
+		if($query -> num_rows() == 1)
+		{
+			return $query->result();
+		}
+		else
+		{
+			return false;
+		}
+	}
 }

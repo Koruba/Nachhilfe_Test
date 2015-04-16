@@ -1,5 +1,5 @@
 <?php
-class User extends CI_Controller{
+class User_controller extends CI_Controller{
 	
 	public function __construct()
 	{
@@ -62,19 +62,35 @@ class User extends CI_Controller{
 	{
 		//$this->setUserLogin();					
 		$this->template->write_view('content','user/login_view');	
-		$this->template->render();		
+		$this->template->render();	
+	}
+	
+	function loginerror()
+	{
+		$data['error'] = "E-Mail oder Passwort falsch.";	
+		$this->template->write_view('content','user/login_view', $data);	
+		$this->template->render();	
 	}
 	
 	function setUserLogin()
 	{
-		$loginData = array
+		 $email = $this->input->post('E_Mail_Address');
+		 $password = $this->input->post('Password');
+		 if ($this->check_login_input($email, $password))
+		 {
+			$loginData = array
 			(
 				'login' => TRUE,
 				'userNo' => 2,
 				'admin' => FALSE 
 			);		
-		$this->session->set_userdata($loginData);
-		header('Location: '.base_url().'index.php/course');
+			$this->session->set_userdata($loginData);	
+			header('Location: '.base_url().'index.php/course');
+		 }
+		 else {
+			header('Location: '.base_url().'index.php/user/loginerror');
+		 }  
+		
 	}
 	
 	function setAdminLogin()
@@ -94,4 +110,18 @@ class User extends CI_Controller{
 		$this->session->sess_destroy();
 		header('Location: '.base_url().'index.php/course');
 	}
+	
+	 function check_login_input($pEmail, $pPassword)
+	 {
+	   $result = $this->User_model->login($pEmail, $pPassword);
+	 
+	   if($result)
+	   {
+	     return TRUE;
+	   }
+	   else
+	   {
+	     return false;
+	   }
+	 }
 }
