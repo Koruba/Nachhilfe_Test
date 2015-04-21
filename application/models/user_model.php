@@ -55,6 +55,15 @@ class User_model extends CI_Model
 		return $query->row_array();
 	}
 	
+	function get_user_no($pUserMail)
+	{
+		$this->db->select('No');
+		$this->db->from('user');
+		$this->db->where('E_Mail_Address', $pUserMail);
+		$query = $this->db->get();
+		return $query->row_array();
+	}
+	
 	function accept_user($pUserNo)
 	{
 		$normal = 'Normal';
@@ -75,7 +84,7 @@ class User_model extends CI_Model
 
 	function login($email, $password)
  	{
-		$this -> db -> select('No, E_Mail_Address, Password');
+		$this -> db -> select('No, E_Mail_Address, Password, Permission');
 		$this -> db -> from('user');
 		$this -> db -> where('E_Mail_Address', $email);
 		$this -> db -> where('Password', sha1($password));
@@ -85,7 +94,7 @@ class User_model extends CI_Model
 		 
 		if($query -> num_rows() == 1)
 		{
-			return $query->result();
+			return $query->row_array();
 		}
 		else
 		{

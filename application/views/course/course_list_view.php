@@ -37,6 +37,8 @@
 if ($this->session->userdata('login') == TRUE)
 {
 	echo "Eingeloggt: Ja";
+	print '<br />';
+	echo "User No:  -".$this->session->userdata('userNo').'-';
 	?>
 	<br />
 	<br />
