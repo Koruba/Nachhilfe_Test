@@ -48,7 +48,7 @@ class Course_controller extends CI_Controller {
 	
 	public function confirmed($pCourseNo)
 	{
-		if($this->Course_model->book_course($pCourseNo, 2) == FALSE)
+		if($this->Course_model->book_course($pCourseNo, $this->session->userdata('userNo')) == FALSE)
 		{
 			$data['error'] = TRUE;	
 			$data['error_message'] = 'Sie haben diesen Kurs bereits gebucht.';

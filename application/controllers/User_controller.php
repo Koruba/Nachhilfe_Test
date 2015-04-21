@@ -52,8 +52,11 @@ class User_controller extends CI_Controller{
 			$class = $this->input->post('class');
 			$password = $this->input->post('password');
 			
+			$data['email'] = $email;
+			
 			$this->User_model->register_user($email, $firstname, $lastname, $class, $password);
-			$this->load->view('test');
+			$this->template->write_view('content', 'course/registration_success_view', $data);
+			$this->template->render();
 			
 		}		
 	}
@@ -67,61 +70,63 @@ class User_controller extends CI_Controller{
 	
 	function loginerror()
 	{
-		$data['error'] = "E-Mail oder Passwort falsch.";	
+		$data['error'] = "Die eingegebene E-Mail oder das Passwort ist falsch.";	
 		$this->template->write_view('content','user/login_view', $data);	
 		$this->template->render();	
+	}
+	
+	function accountNotAccepted()
+	{
+		$data['error'] = "Der Account wurde noch nicht freigeschaltet.";	
+		$this->template->write_view('content','user/login_view', $data);	
+		$this->template->render();
 	}
 	
 	function setUserLogin()
 	{
 		 $email = $this->input->post('E_Mail_Address');
 		 $password = $this->input->post('Password');
-		 if ($this->check_login_input($email, $password))
-		 {
-			$loginData = array
-			(
-				'login' => TRUE,
-				'userNo' => 2,
-				'admin' => FALSE 
-			);		
-			$this->session->set_userdata($loginData);	
-			header('Location: '.base_url().'index.php/course');
-		 }
-		 else {
-			header('Location: '.base_url().'index.php/user/loginerror');
-		 }  
-		
+		 $this->check_login_input($email, $password); 
 	}
 	
-	function setAdminLogin()
-	{
-		$loginData = array
-			(
-				'login' => TRUE,
-				'userNo' => 2,
-				'admin' => TRUE 
-			);		
-		$this->session->set_userdata($loginData);
-		header('Location: '.base_url().'index.php/course');
-	}
-
 	function logout()
 	{
 		$this->session->sess_destroy();
 		header('Location: '.base_url().'index.php/course');
 	}
 	
-	 function check_login_input($pEmail, $pPassword)
-	 {
-	   $result = $this->User_model->login($pEmail, $pPassword);
-	 
-	   if($result)
-	   {
-	     return TRUE;
-	   }
-	   else
-	   {
-	     return false;
-	   }
+	function check_login_input($pEmail, $pPassword)
+	{
+		$result = $this->User_model->login($pEmail, $pPassword);
+	   
+		if($result)
+		{
+			if ($result['Permission'] == '') 
+			{
+				header('Location: '.base_url().'/index.php/user/accountNotAccepted');
+				exit;
+			}
+			if ($result['Permission'] == 'Normal') {
+				$admin = FALSE;
+			}
+			else {
+				$admin = TRUE;
+			}
+			
+			$userNo = $result['No'];
+			
+			$loginData = array
+			(
+				'login' => TRUE,
+				'userNo' => $userNo,
+				'admin' => $admin 
+			);		
+			$this->session->set_userdata($loginData);	
+			header('Location: '.base_url().'index.php/course');
+		}
+		else
+		{
+			header('Location: '.base_url().'/index.php/user/loginerror');
+		}
 	 }
 }
