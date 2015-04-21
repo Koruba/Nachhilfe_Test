@@ -13,7 +13,7 @@ form li {
 <body>
 	<h1>Registration</h1>
 	
-	<p>Bitte geben Sie die Informationen unten ein.</p>
+	<p>Bitte füllen Sie die unten liegenden Felder und bestätigen die Eingabe mit einem Klick auf den 'Registrieren' Button.</p>
 	
 <?php
 	
@@ -104,12 +104,16 @@ form li {
 	</li>
 	
 	<li>
+	<label>Hinweis: Bitte Umlaute entsprechend ersetzen. Beispiel: 'ä' wird zu 'ae'.</label>
+	</li>
+	
+	<li>
 		<?php echo validation_errors(); ?>
 	</li>
 	
 	<li>
 		<div>
-			<?php echo form_submit(array('name' => 'register'), 'Register'); ?>
+			<?php echo form_submit(array('name' => 'register'), 'Registrieren'); ?>
 		</div>	
 	</li>
 </ul>
