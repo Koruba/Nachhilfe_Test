@@ -12,7 +12,6 @@ class User_controller extends CI_Controller{
 		$this->load->library('template');
 		$this->load->library('session');
 		
-		$this->template->write_view('navigation', 'templates/navigation_template.php');
 		$this->template->write_view('footer', 'templates/footer_template');
 	}
 	
@@ -40,6 +39,7 @@ class User_controller extends CI_Controller{
 			//echo "Fehler aufgetreten";
 		 //	Es gibt Fehler bei der Validierung, wurde nicht gestartet.
 			//$this->load->view('view_register', $this->view_data);
+			$this->template->write_view('navigation', 'templates/navigation_template_register.php');
 			$this->template->write_view('content','user/register_view', $data);
 			$this->template->render();			
 		} 
@@ -60,14 +60,16 @@ class User_controller extends CI_Controller{
 	
 	function login()
 	{
-		//$this->setUserLogin();					
+		//$this->setUserLogin();
+		$this->template->write_view('navigation', 'templates/navigation_template_login.php');					
 		$this->template->write_view('content','user/login_view');	
 		$this->template->render();	
 	}
 	
 	function loginerror()
 	{
-		$data['error'] = "E-Mail oder Passwort falsch.";	
+		$data['error'] = "E-Mail oder Passwort falsch.";
+		$this->template->write_view('navigation', 'templates/navigation_template_login.php');	
 		$this->template->write_view('content','user/login_view', $data);	
 		$this->template->render();	
 	}
@@ -111,17 +113,27 @@ class User_controller extends CI_Controller{
 		header('Location: '.base_url().'index.php/course');
 	}
 	
-	 function check_login_input($pEmail, $pPassword)
-	 {
-	   $result = $this->User_model->login($pEmail, $pPassword);
-	 
-	   if($result)
-	   {
-	     return TRUE;
-	   }
-	   else
-	   {
-	     return false;
-	   }
-	 }
+	function check_login_input($pEmail, $pPassword)
+	{
+		$result = $this->User_model->login($pEmail, $pPassword);
+		 
+		if($result)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	function show_user_details()
+	{
+		$this->load->model('Course_model');	
+		$data['Course_Entries'] = $this->Course_model->get_course_entries($this->session->userdata('userNo'));
+		$data['User_Courses'] = $this->Course_model->get_courses_by_user();	
+		$this->template->write_view('navigation', 'templates/navigation_template_user.php');					
+		$this->template->write_view('content','user/user_details_view', $data);
+		$this->template->render();
+	}
 }

@@ -52,13 +52,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['course'] = "Course_controller/overview";
 $route['course/(:any)'] = "Course_controller/$1";
 $route['course/detail/(:num)'] = "Course_controller/detail/$1";
+$route['course/confirmation/(:num)'] = "Course_controller/confirmation/$1";
+$route['course/confirmed/(:num)'] = "Course_controller/confirmed/$1";
 $route['admin'] = "Admin_controller/registrations";
 $route['admin/accept/(:num)'] = "Admin_controller/accept/$1";
 $route['admin/accepted/(:num)'] = "Admin_controller/accepted/$1";
+$route['user/detail'] = "User_controller/show_user_details";
 $route['user/(:any)'] = "User_controller/$1";
-//$route['(:any)'] = 'pages/view/$1';
 $route['default_controller'] = 'Course_controller/overview'; // Course_controller/overview
-//$route['user/login'] = "login";
 $route['admin/acceptuser/(:num)'] = "Admin_controller/acceptuser/$1";
 $route['admin/accepteduser/(:num)'] = "Admin_controller/accepteduser/$1";
 $route['admin/acceptcourse/(:num)'] = "Admin_controller/acceptcourse/$1";

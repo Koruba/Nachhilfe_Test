@@ -41,7 +41,7 @@ if ($this->session->userdata('login') == TRUE)
 	<br />
 	<br />
 	<form>
-		<input type="button" value="Neuen Kurs erstellen" onclick="window.location.href='<?php echo base_url(); ?>/index.php/course/create/'">
+		<input type="button" value="Neuen Kurs erstellen" onclick="window.location.href='<?php echo base_url(); ?>index.php/course/create/'">
 	</form>
 	<?php
 }
@@ -57,7 +57,7 @@ if ($this->session->userdata('admin') == TRUE)
 	<br />
 	<br />
 	<form>
-		<input type="button" value="Admin Bereich" onclick="window.location.href='<?php echo base_url(); ?>/index.php/admin'">
+		<input type="button" value="Admin Bereich" onclick="window.location.href='<?php echo base_url(); ?>index.php/admin'">
 	</form>
 	<?php
 }

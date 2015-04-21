@@ -21,7 +21,7 @@ class Course_controller extends CI_Controller {
 		//$this->template->add_js('public/js/jquery-1.11.1.min.js');
 		//$this->template->add_js('public/js/jquery-ui-1.10.3.custom.min.js');
 		
-		$this->template->write_view('navigation', 'templates/navigation_template.php');
+		$this->template->write_view('navigation', 'templates/navigation_template_start.php');
 		$this->template->write_view('footer', 'templates/footer_template');
     }
 	
@@ -34,6 +34,7 @@ class Course_controller extends CI_Controller {
 	
 	public function detail($pCourseNo)
 	{
+		$data['Entry_Count'] = $this->Course_model->count_course_entries($pCourseNo);
 		$data['course_detail'] = $this->Course_model->get_course_detail($pCourseNo);
 		$this->template->write_view('content','course/course_details_view', $data);	
 		$this->template->render();
@@ -41,6 +42,10 @@ class Course_controller extends CI_Controller {
 	
 	public function confirmation($pCourseNo)
 	{
+		if (!$this->check_login_status())
+		{
+			header('Location: '.base_url());
+		}	
 		$data['course_detail'] = $this->Course_model->get_course_detail($pCourseNo);
 		$this->template->write_view('content','course/booking_confirmation_view', $data);	
 		$this->template->render();
@@ -51,7 +56,7 @@ class Course_controller extends CI_Controller {
 		if($this->Course_model->book_course($pCourseNo, 2) == FALSE)
 		{
 			$data['error'] = TRUE;	
-			$data['error_message'] = 'Sie haben diesen Kurs bereits gebucht.';
+			$data['error_message'] = 'Entweder haben sie diesen Kurs bereits gebucht, oder es sind keine Plätze mehr frei.';
 			$this->template->write_view('content','course/booking_confirmed_view', $data);	
 			$this->template->render();
 		}
@@ -66,9 +71,9 @@ class Course_controller extends CI_Controller {
 	
 	public function create()
 	{
-		if ($this->session->userdata('login') == TRUE)
+		if ($this->check_login_status())
 		{
-			$data['subject_list'] = $this->Course_model->get_subjects();	
+			$data['subject_list'] = $this->Course_model->get_subjects();
 			$this->template->write_view('content','course/create_course_view', $data);	
 			$this->template->render();
 		}
@@ -110,8 +115,8 @@ class Course_controller extends CI_Controller {
 			$maximum_participants = $this->input->post('maximum_participants');
 			$description = $this->input->post('description');
 			
-			$this->Course_model->createNewCourse($subject, $name, $date_from, $date_to, $cost, $maximum_participants, $description);
-			$this->overview();
+			$this->Course_model->createNewCourse($subject, $name, date($date_from), date($date_to), $cost, $maximum_participants, $description);
+			header('Location: '.base_url());
 		}
 	}
 
@@ -119,11 +124,20 @@ class Course_controller extends CI_Controller {
 	{
 		if ($this->session->userdata('login') != TRUE)
 		{
-			return true;
-		}
-		else {
 			return false;
 		}
+		else {
+			return true;
+		}
+	}
+
+	function format_date($pDate)
+	{
+		$year = substr($pDate,0,4);
+		$month = substr($pDate,5,2);
+		$day = substr($pDate,8,2);
+		$dateFormat = $day.'.'.$month.'.'.$year;
+		return $dateFormat;
 	}
 }
 

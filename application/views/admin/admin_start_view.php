@@ -18,7 +18,7 @@ foreach($newUsersList as $User):
 		<td><?php echo $User['Last_Name']; ?></td>
 		<td><?php echo $User['E_Mail_Address']; ?></td>
 		<td><?php echo $User['Class']; ?></td>
-		<td><a href="<?php echo base_url().'/index.php/admin/acceptuser/'.$User['No']; ?>">Schueler akzeptieren</a></td>
+		<td><a href="<?php echo base_url().'index.php/admin/acceptuser/'.$User['No']; ?>">Schueler akzeptieren</a></td>
 	</tr>
 	<?php
 endforeach;
@@ -48,7 +48,7 @@ foreach($newCourseList as $Course):
 		<td><?php echo $Course['queryUserFirstName']; ?></td>
 		<td><?php echo $Course['queryUserLastName']; ?></td>
 		<td><?php echo $Course['queryUserClass']; ?></td>
-		<td><a href="<?php echo base_url().'/index.php/admin/acceptcourse/'.$Course['queryCourseNo']; ?>">Kurs akzeptieren</a></td>
+		<td><a href="<?php echo base_url().'index.php/admin/acceptcourse/'.$Course['queryCourseNo']; ?>">Kurs akzeptieren</a></td>
 	</tr>
 	<?php
 endforeach;

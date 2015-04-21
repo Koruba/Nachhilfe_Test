@@ -1,4 +1,3 @@
-
 <h1>Einen Neuen Kurs erstellen</h1>
 
 <p>Bitte geben Sie die Informationen unten ein.</p>
@@ -51,11 +50,6 @@ $maximum_participants = array(
 		<label>Fach:</label>
 		<div>
 			<?php
-				$locSubject_List = array();
-				$i = 1;
-				foreach($subject_list as $subject_list_item):
-					array_push($locSubject_List, $subject_list_item);
-				endforeach;
 				echo form_dropdown('subject', $subject_list);
 			?>
 		</div>	
@@ -75,13 +69,13 @@ $maximum_participants = array(
 	<li>
 		<label>Von Datum:</label>
 		<div>
-			<?php echo form_input($date_from); ?>
+			<input id="datepicker" type="text" name="date_from">
 		</div>	
 	</li>	
 	<li>
 		<label>Bis Datum:</label>
 		<div>
-			<?php echo form_input($date_to); ?>
+			<input id="datepicker2" type="text" name="date_to">
 		</div>	
 	</li>	
 	<li>
@@ -105,6 +99,18 @@ $maximum_participants = array(
 		</div>	
 	</li>
 </ul>
-</form>
-
 <?php echo form_close(); ?>
+<script src="http://js.nicedit.com/nicEdit-latest.js" type="text/javascript"></script>
+<script type="text/javascript">bkLib.onDomLoaded(nicEditors.allTextAreas);</script>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+		$(function() {
+			$( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+			$( "#datepicker2" ).datepicker({ dateFormat: 'yy-mm-dd' });
+		});
+		
+		//bkLib.onDomLoaded(nicEditors.allTextAreas);
+});
+</script>
