@@ -71,12 +71,9 @@ class User_controller extends CI_Controller{
 	
 	function loginerror()
 	{
-<<<<<<< HEAD
 		$data['error'] = "E-Mail oder Passwort falsch.";
 		$this->template->write_view('navigation', 'templates/navigation_template_login.php');	
-=======
 		$data['error'] = "Die eingegebene E-Mail oder das Passwort ist falsch.";	
->>>>>>> origin/master
 		$this->template->write_view('content','user/login_view', $data);	
 		$this->template->render();	
 	}
@@ -104,29 +101,7 @@ class User_controller extends CI_Controller{
 	function check_login_input($pEmail, $pPassword)
 	{
 		$result = $this->User_model->login($pEmail, $pPassword);
-<<<<<<< HEAD
 		 
-		if($result)
-		{
-			return TRUE;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
-	function show_user_details()
-	{
-		$this->load->model('Course_model');	
-		$data['Course_Entries'] = $this->Course_model->get_course_entries($this->session->userdata('userNo'));
-		$data['User_Courses'] = $this->Course_model->get_courses_by_user();	
-		$this->template->write_view('navigation', 'templates/navigation_template_user.php');					
-		$this->template->write_view('content','user/user_details_view', $data);
-		$this->template->render();
-	}
-=======
-	   
 		if($result)
 		{
 			if ($result['Permission'] == '') 
@@ -156,6 +131,16 @@ class User_controller extends CI_Controller{
 		{
 			header('Location: '.base_url().'/index.php/user/loginerror');
 		}
-	 }
->>>>>>> origin/master
+	}
+	
+	function show_user_details()
+	{
+		$this->load->model('Course_model');	
+		$data['Course_Entries'] = $this->Course_model->get_course_entries($this->session->userdata('userNo'));
+		$data['User_Courses'] = $this->Course_model->get_courses_by_user();	
+		$this->template->write_view('navigation', 'templates/navigation_template_user.php');					
+		$this->template->write_view('content','user/user_details_view', $data);
+		$this->template->render();
+	}
+	   
 }

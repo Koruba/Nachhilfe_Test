@@ -25,7 +25,7 @@ class Admin_controller extends CI_Controller {
 			
 			$this->template->add_css('./views/style.css');
 			
-			$this->template->write_view('navigation', 'templates/navigation_template.php');
+			$this->template->write_view('navigation', 'templates/navigation_template_user.php');
 			$this->template->write_view('footer', 'templates/footer_template');
         }
 		
