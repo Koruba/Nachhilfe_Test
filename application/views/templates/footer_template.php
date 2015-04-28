@@ -1,1 +1,1 @@
-<p>Dies ist der Footer der Seite</p>
+<p>Berufskolleg Uerdingen</p>

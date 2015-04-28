@@ -1,7 +1,6 @@
-<h1>Folgenden Kurs akzeptieren:</h1>
+<h1>Folgenden Kurs ablehnen:</h1>
 <br />
-<p>M&ouml;chten Sie wirklich den folgenden Kurs akzeptieren?</p>
-<p>Der entsprechende Kurs kann ab dann von allen akzeptierten Sch&uuml;lern gebucht werden.</p>
+<p>M&ouml;chten Sie wirklich den folgenden Kurs ablehnen?</p>
 <table>
 	<tr>
 		<td>Kurs-Nummer</td>
@@ -25,10 +24,10 @@
 <br />
 <br />
 <?php
-echo form_open('admin/acceptedcourse/'.$Course_Data['queryCourseNo']);
+echo form_open('admin/dismissedcourse/'.$Course_Data['queryCourseNo']);
 echo form_hidden('CourseNo', $Course_Data['queryCourseNo']);
 ?>
-<input type="submit" class="button accept center" value="Kurs akzeptieren">
+<input type="submit" class="button dismiss center" value="Kurs ablehnen">
 <?php
 echo form_close();
 ?>

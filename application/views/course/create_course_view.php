@@ -95,7 +95,8 @@ $maximum_participants = array(
 	</li>	
 	<li>
 		<div>
-			<?php echo form_submit(array('name' => 'newCourse'), 'Kurs anlegen'); ?>
+			<?php //echo form_submit(array('name' => 'newCourse'), 'Kurs anlegen'); ?>
+			<input type="submit" class="button general center" value="Kurs anlegen">
 		</div>	
 	</li>
 </ul>
@@ -114,3 +115,5 @@ $(document).ready(function(){
 		//bkLib.onDomLoaded(nicEditors.allTextAreas);
 });
 </script>
+<script type="text/javascript" src="code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="code.jquery.com/ui/1.11.4/jquery-ui.js"></script>

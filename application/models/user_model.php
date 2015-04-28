@@ -73,6 +73,14 @@ class User_model extends CI_Model
 		$this->db->update('user', $data); 	
 	}
 	
+	function dismiss_user($pUserNo)
+	{
+		$this->db->where('No', $pUserNo);
+		$this->db->where('Permission !=','Admin');
+		$this->db->where('Permission !=','Normal');	
+		$this->db->delete('user');
+	}
+	
 	function get_classes()
 	{
 	    $query = $this->db->get('class'); 

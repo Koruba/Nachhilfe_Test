@@ -113,7 +113,8 @@ form li {
 	
 	<li>
 		<div>
-			<?php echo form_submit(array('name' => 'register'), 'Registrieren'); ?>
+			<?php //echo form_submit(array('name' => 'register'), 'Registrieren'); ?>
+			<input type="submit" class="button general center" value="Registrieren"/>
 		</div>	
 	</li>
 </ul>

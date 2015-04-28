@@ -1,69 +1,52 @@
-<h1>Liste aller zugelessaner Kurse</h1>
-<table>
-	<tr>
-		<td>Kurs-Nr</td>
-		<td>Fach</td>
-		<td>Kurs-Name</td>
-		<td>Anbieter-Nr</td>
-		<td>Kurs-Kosten</td>
-		<td>Datum von</td>
-		<td>Datum bis</td>
-		<td>Detail-Link</td>
-	</tr>
-<?php 
-	foreach($course_list as $Course):		
-		?>
-		<tr>
-			<td><?php echo $Course['No']; ?></td>
-			<td><?php echo $Course['Subject']; ?></td>
-			<td><?php echo $Course['Name']; ?></td>
-			<td><?php echo $Course['Instructor_No']; ?></td>
-			<td><?php echo $Course['Cost'].'€'; ?></td>
-			<td><?php echo $Course['Date_From']; ?></td>
-			<td><?php echo $Course['Date_To']; ?></td>
-			<td><a href="<?php echo base_url().'index.php/course/detail/'.(string)$Course['No']; ?>">Details</a></td>
-		</tr>
-		<?php
-	endforeach;
-	print '<br />';
- ?>
- </table>
- <br />
- <br />
- <p>BaseUrl: <?php echo base_url(); ?></p>
- <br />
- <br />
-<?php
+﻿<?php
 if ($this->session->userdata('login') == TRUE)
 {
-	echo "Eingeloggt: Ja";
-	print '<br />';
-	echo "User No:  -".$this->session->userdata('userNo').'-';
-	?>
-	<br />
-	<br />
-	<form>
-		<input type="button" value="Neuen Kurs erstellen" onclick="window.location.href='<?php echo base_url(); ?>index.php/course/create/'">
-	</form>
+?>
+	<div class="NewCourseDiv">
+		<form>
+			<input type="button" value="Neuen Kurs erstellen" class="button general center" onclick="window.location.href='<?php echo base_url(); ?>index.php/course/create/'">
+		</form>
+	</div>
 	<?php
-}
-else {
-	echo "Eingeloggt: Nein";
-}
-echo "<br />";
-echo "<br />";
-if ($this->session->userdata('admin') == TRUE)
-{
-	echo "Admin: Ja";
+	if ($this->session->userdata('admin') == TRUE)
+	{
+		?>
+		<div class="AdminCenterDiv">
+			<form>
+				<input type="button" value="Admin Bereich" class="button general center" onclick="window.location.href='<?php echo base_url(); ?>index.php/admin/'">
+			</form>
+		</div>
+		<?php
+	}
 	?>
-	<br />
-	<br />
-	<form>
-		<input type="button" value="Admin Bereich" onclick="window.location.href='<?php echo base_url(); ?>index.php/admin'">
-	</form>
-	<?php
-}
-else {
-	echo "Admin: Nein";
+<?php 
 }
 ?>
+<br />
+<h1>Kursangebote</h1>
+<br />
+<br />
+<?php
+foreach($course_list as $Course):
+?>
+	<div class="CourseListEntry">
+		<div class="StartCourseIcon">
+			<a href="<?php echo base_url().'index.php/course/detail/'.(string)$Course['queryCourseNo']; ?>"><img src="<?= base_url()?>/images/conf.png"></a>
+		</div>
+		<div class="CourseInfo">
+			<h2 class="CourseInfoH2"><a href="<?php echo base_url().'index.php/course/detail/'.(string)$Course['queryCourseNo']; ?>"><?php echo $Course['queryCourseName']; ?></a></h2>
+			<p class="CourseInfoP"><b>Anbieter:</b> <?php echo $Course['queryUserFirstName'].' '.$Course['queryUserLastName']. ' - '.$Course['queryUserClass']; ?> <b>&nbsp;&nbsp;Fach:</b> <?php echo $Course['queryCourseSubject']; ?></p>
+		</div>
+		<div class="CourseDescription">
+			<p><i><?php echo strip_tags(substr($Course['queryCourseDescription'],0,110)).'...'; ?> </i></p>
+		</div>
+	</div>
+	<!--div class="FloatNone"></div-->
+<?php
+endforeach;
+if ($this->session->userdata('login') == TRUE)
+{
+}
+?>
+
+

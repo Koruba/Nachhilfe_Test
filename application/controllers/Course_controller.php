@@ -27,7 +27,7 @@ class Course_controller extends CI_Controller {
 	
 	public function overview()
 	{				
-		$data['course_list'] = $this->Course_model->get_courses();	
+		$data['course_list'] = $this->Course_model->get_courses();
 		$this->template->write_view('content','course/course_list_view', $data);	
 		$this->template->render();
 	}
@@ -36,6 +36,22 @@ class Course_controller extends CI_Controller {
 	{
 		$data['Entry_Count'] = $this->Course_model->count_course_entries($pCourseNo);
 		$data['course_detail'] = $this->Course_model->get_course_detail($pCourseNo);
+		if (!isset($data['course_detail']))
+		{
+			show_404();
+		}
+		$this->template->write_view('content','course/course_details_view', $data);	
+		$this->template->render();
+	}
+
+	public function preview($pCourseNo)
+	{
+		$data['Entry_Count'] = $this->Course_model->count_course_entries($pCourseNo);
+		$data['course_detail'] = $this->Course_model->get_course_detail($pCourseNo, 0);
+		if (!isset($data['course_detail']))
+		{
+			show_404();
+		}
 		$this->template->write_view('content','course/course_details_view', $data);	
 		$this->template->render();
 	}
@@ -47,8 +63,14 @@ class Course_controller extends CI_Controller {
 			header('Location: '.base_url());
 		}	
 		$data['course_detail'] = $this->Course_model->get_course_detail($pCourseNo);
-		$this->template->write_view('content','course/booking_confirmation_view', $data);	
-		$this->template->render();
+		if (isset($data['course_detail']))
+		{
+			$this->template->write_view('content','course/booking_confirmation_view', $data);	
+			$this->template->render();
+		}
+		else {
+			show_404();
+		}
 	}
 	
 	public function confirmed($pCourseNo)
@@ -78,7 +100,7 @@ class Course_controller extends CI_Controller {
 			$this->template->render();
 		}
 		else {
-			//$this->overview();		
+			header('Location: '.base_url());		
 		}
 	}
 	
@@ -96,7 +118,7 @@ class Course_controller extends CI_Controller {
 		//$this->form_validation->set_rules('date_from', 'Datum Von', 'trim|required|date');
 		//$this->form_validation->set_rules('date_to', 'Datum Bis', 'trim|required|date');
 		$this->form_validation->set_rules('cost', 'Kosten', 'trim|required|numeric');
-		$this->form_validation->set_rules('maximum_participants', 'Maximale Teilnehmerzahle', 'trim|required|numeric');
+		$this->form_validation->set_rules('maximum_participants', 'Maximale Teilnehmerzahl', 'trim|required|numeric');
 		$this->form_validation->set_rules('description', 'Beschreibung', 'required|min_length[10]|max_length[600]');
 		
 		
@@ -116,8 +138,14 @@ class Course_controller extends CI_Controller {
 			$description = $this->input->post('description');
 			
 			$this->Course_model->createNewCourse($subject, $name, date($date_from), date($date_to), $cost, $maximum_participants, $description);
-			header('Location: '.base_url());
+			header('Location: '.base_url().'index.php/course/creation_successful');
 		}
+	}
+
+	function course_creation_successful()
+	{
+		$this->template->write_view('content', 'course/course_creation_success_view');
+		$this->template->render();
 	}
 
 	function check_login_status()

@@ -20,13 +20,13 @@
 	 <input type="text" size="50" id="E_Mail_Address" name="E_Mail_Address"/>
 	 </div>
 	 <br/>
-	 <label for="Password">Password:</label>
+	 <label for="Password">Passwort:</label>
 	 <div>
 	 <input type="Password" size="20" id="Password" name="Password"/>
 	 </div>
 	 <br/>
  </ul>
-	 <input type="submit" value="Login"/>
+	 <input type="submit" class="button general center" value="Login"/>
 	   </form>
 	 </body>
 </html>

@@ -66,7 +66,7 @@ class Admin_controller extends CI_Controller {
 		
 		function acceptcourse($pCourseNo)
 		{
-			$data['Course_Data'] = $this->Course_model->get_course_detail($pCourseNo);
+			$data['Course_Data'] = $this->Course_model->get_course_detail($pCourseNo, 0);
 			$this->template->write_view('content','admin/accept_course_view', $data);	
 			$this->template->render();
 		}
@@ -82,6 +82,58 @@ class Admin_controller extends CI_Controller {
 				$this->Course_model->accept_course($pCourseNo);
 				$data['type'] = "Kurs";
 				$this->template->write_view('content', 'admin/accept_successful_view', $data);
+				$this->template->render();
+			}
+			else {
+				echo "Fehler";
+			}
+		}
+		
+		function dismisscourse($pCourseNo)
+		{
+			$data['Course_Data'] = $this->Course_model->get_course_detail($pCourseNo, 0);
+			$this->template->write_view('content', 'admin/dismiss_course_view', $data);
+			$this->template->render();
+		}
+		
+		function dismissedcourse($pCourseNo)
+		{
+			$this->load->library('form_validation');	
+				
+			$this->form_validation->set_rules('CourseNo', 'ERROR', 'required');
+			
+			if ($this->form_validation->run() == TRUE)
+			{		
+				$this->Course_model->dismiss_course($pCourseNo);
+				$data['type'] = "Kurs";
+				$this->template->write_view('content', 'admin/dismiss_successful_view', $data);
+				$this->template->render();
+			}
+			else {
+				echo "Fehler";
+			}
+		}
+		
+		function dismissuser($pUserNo)
+		{
+			$data['UserNo'] = $pUserNo;
+			$data['User_Data'] = $this->user_model->get_user_data($pUserNo);	
+			
+			$this->template->write_view('content','admin/dismiss_user_view', $data);	
+			$this->template->render();
+		}
+		
+		function dismisseduser($pUserNo)
+		{
+			$this->load->library('form_validation');	
+				
+			$this->form_validation->set_rules('UserNo', 'ERROR', 'required');
+			
+			if ($this->form_validation->run() == TRUE)
+			{		
+				$this->user_model->dismiss_user($pUserNo);
+				$data['type'] = "Schüler";
+				$this->template->write_view('content', 'admin/dismiss_successful_view', $data);
 				$this->template->render();
 			}
 			else {

@@ -35,6 +35,7 @@
 		<td>Kurs-Kosten</td>
 		<td>Datum von</td>
 		<td>Datum bis</td>
+		<td>Akzeptiert</td>
 		<td>Detail-Link</td>
 	</tr>
 <?php 
@@ -47,7 +48,25 @@
 			<td><?php echo $User_Course['Cost'].'€'; ?></td>
 			<td><?php echo $User_Course['Date_From']; ?></td>
 			<td><?php echo $User_Course['Date_To']; ?></td>
-			<td><a href="<?php echo base_url().'index.php/course/detail/'.(string)$User_Course['No']; ?>">Details</a></td>
+			<?php
+				if($User_Course['Accepted'] == 1)
+				{
+					?>
+					<td>
+						<p style="color: green;">Ja</p>
+					</td>
+					<td><a href="<?php echo base_url().'index.php/course/detail/'.(string)$User_Course['No']; ?>">Details</a></td>
+					<?php
+				}
+				else {
+					?>
+					<td>
+						<p style="color: red;">Nein</p>
+					</td>
+					<td><a href="<?php echo base_url().'index.php/course/preview/'.(string)$User_Course['No']; ?>">Vorschau</a></td>
+					<?php
+				}
+			?>			
 		</tr>
 		<?php
 	endforeach;

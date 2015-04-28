@@ -2830,3 +2830,106 @@ ol.horizontal li{
 	height:200px;
 }
 
+/*
+ * 
+ * CUSTOM
+ * Webprojekt IT32
+ * 
+ * 
+ */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+.button {
+  border: 0 none;
+  border-radius: 2px 2px 2px 2px;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Arial,sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 20px;
+  margin-bottom: 0;
+  margin-top: 10px;
+  padding: 7px 10px;
+  text-transform: none;
+  transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -webkit-transition: all 0.3s ease 0s;
+  width: 16.795%;
+  /* auto */
+  /*text-align: center;*/
+  /* DELETE WHEN WIDTH AUTO */
+}
+.button.general {
+  background: none repeat scroll 0 0 #FFD466;
+  color: #1F3D52;
+}
+.button.general.nowidth{
+	width: 100%;
+}
+.button.general:hover {
+  background: none repeat scroll 0 0 #999999;
+  color: #FFFFFF;
+}
+.button.dismiss {
+  background: none repeat scroll 0 0 red;
+  color: #1F3D52;	
+}
+.button.dismiss.nowidth{
+	width: 100%;
+}
+.button.dismiss:hover {
+  background: none repeat scroll 0 0 #999999;
+  color: #FFFFFF;
+}
+.button.accept {
+  background: none repeat scroll 0 0 green;
+  color: #1F3D52;	
+}
+.button.accept.nowidth{
+	width: 100%;
+}
+.button.accept:hover {
+  background: none repeat scroll 0 0 #999999;
+  color: #FFFFFF;
+}
+.NewCourseDiv {
+	position: relative;
+	left: 80%;
+}
+.AdminCenterDiv
+{
+	position: relative;
+	left: 80%;
+}
+div.CourseListEntry
+{
+	min-width: 45%;
+	max-width: 45%;
+	margin-bottom: 40px;
+	min-height: 86px;
+	float: left;
+	margin-right: 15px;
+}
+div.StartCourseIcon
+{
+	float: left;
+	margin-right: 10px;
+}
+div.CourseInfo
+{
+	
+}
+div.FloatNone
+{
+	float: none;
+}
+p.CourseInfoP
+{
+	line-height: 0.0;
+}
+h2.CourseInfoH2
+{
+	line-height: 0.0;
+	color: #0B1D5B;
+}
