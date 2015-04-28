@@ -4,6 +4,9 @@
 ?>
 <br />
 <br />
-<form>
-<input type="button" value="Wirklich buchen" class="button general center" onclick="window.location.href='<?php echo base_url().'index.php/course/confirmed/'.$course_detail['queryCourseNo']; ?>'">
+<?php
+echo form_open('course/confirmed/'.$course_detail['queryCourseNo']);
+?>
+	<input type="hidden" name="booking_confirmation" value="confirmation">
+	<input type="submit" value="Wirklich buchen" class="button general center"">
 </form>

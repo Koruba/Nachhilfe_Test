@@ -10,7 +10,7 @@ class Course_model extends CI_Model {
 	public function get_courses()
 	{
 		$this->db->select('course.No AS queryCourseNo, course.Subject AS queryCourseSubject,
-						   course.Name AS queryCourseName,
+						   course.Name AS queryCourseName, 
 						   course.Date_From AS queryCourseDateFrom, course.Date_To AS queryCourseDateTo,
 						   course.Description AS queryCourseDescription, course.Maximum_Participants AS queryCourseMaximumParticipants,
 						   course.Cost AS queryCourseCost, course.Accepted AS queryCourseAccepted,
@@ -39,7 +39,7 @@ class Course_model extends CI_Model {
 	{
 		$courseNo = (int)$pCourseNo;			
 		$this->db->select('course.No AS queryCourseNo, course.Subject AS queryCourseSubject,
-						   course.Name AS queryCourseName,
+						   course.Name AS queryCourseName, course.Instructor_No AS queryUserInstructorNo,
 						   course.Date_From AS queryCourseDateFrom, course.Date_To AS queryCourseDateTo,
 						   course.Description AS queryCourseDescription, course.Maximum_Participants AS queryCourseMaximumParticipants,
 						   course.Cost AS queryCourseCost, course.Accepted AS queryCourseAccepted,
@@ -62,31 +62,38 @@ class Course_model extends CI_Model {
 		
 		$this->db->select('Maximum_Participants');
 		$this->db->from('course');
-		$this->db->where('No', $pUserID);
+		$this->db->where('No', $pCourseNo);
 		$this->db->where('Accepted', 1);
+		$query = $this->db->get();
 		if ($this->db->count_all_results() == 0)
-		{
+		{	
 			return false;
 			exit;
 		} 
 		else {
-			$query = $this->db->get();
-			$maximumParticipants = $query->row_array('Maximum_Participants');
+			$course = $query->row_array('Maximum_Participants');
 		}
 		
 		$this->db->select('*');
 		$this->db->from('course_entry');
 		$this->db->where('Course_No', $pCourseNo);
 		$this->db->where('User_No', $pUserID);
-		if ($this->db->count_all_results() > 0  OR  $this->db->count_all_results() >= $maximumParticipants)
+		if ($this->db->count_all_results() > 0)
 		{
 			return false;
-		}
-		else {
-			$this->db->insert('course_entry', $data);
-			return true;
+			exit;
 		}
 		
+		$this->db->select('*');
+		$this->db->from('course_entry');
+		$this->db->where('Course_No', $pCourseNo);
+		if ((int)$this->db->count_all_results() >= (int)$course['Maximum_Participants'])
+		{
+			return false;
+			exit;
+		}
+		$this->db->insert('course_entry', $data);
+		return true;			
 	}
 	
 	public function createNewCourse($pSubject, $pName, $pDateFrom, $pDateTo, $pCost, $pMaximum_Participants, $pDescription)
@@ -164,6 +171,14 @@ class Course_model extends CI_Model {
 		$this->db->where('Course_No', $pCourseNo);
 		$this->db->from('course_entry');
 		return $this->db->count_all_results();
+	}
+	
+	function get_participants($pCourseNo)
+	{
+		$this->db->where('Course_No', $pCourseNo);
+		$this->db->from('course_entry');
+		$query = $this->db->get();
+		return $query->result_array();
 	}
 }
 

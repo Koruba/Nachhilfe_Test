@@ -56,6 +56,7 @@ $route['course/preview/(:num)'] = "Course_controller/preview/$1";
 $route['course/confirmation/(:num)'] = "Course_controller/confirmation/$1";
 $route['course/confirmed/(:num)'] = "Course_controller/confirmed/$1";
 $route['course/creation_successful'] = "Course_controller/course_creation_successful";
+$route['course/participants/(:num)'] = "Course_controller/participant_list/$1";
 $route['user/detail'] = "User_controller/show_user_details";
 $route['user/(:any)'] = "User_controller/$1";
 $route['user/loginerror/(:num)'] = "User_controller/loginerror/$1";

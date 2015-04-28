@@ -75,20 +75,27 @@ class Course_controller extends CI_Controller {
 	
 	public function confirmed($pCourseNo)
 	{
-		if($this->Course_model->book_course($pCourseNo, $this->session->userdata('userNo')) == FALSE)
-		{
-			$data['error'] = TRUE;	
-			$data['error_message'] = 'Entweder haben sie diesen Kurs bereits gebucht, oder es sind keine Plätze mehr frei.';
-			$this->template->write_view('content','course/booking_confirmed_view', $data);	
-			$this->template->render();
+		$CalledByView = $this->input->post('booking_confirmation');
+		if ($CalledByView == 'confirmation')
+		{	
+			if($this->Course_model->book_course($pCourseNo, $this->session->userdata('userNo')) == FALSE)
+			{
+				$data['error'] = TRUE;	
+				$data['error_message'] = 'Entweder haben sie diesen Kurs bereits gebucht, oder es sind keine Plätze mehr frei.';
+				$this->template->write_view('content','course/booking_confirmed_view', $data);	
+				$this->template->render();
+			}
+			else{
+				$data['error'] = FALSE;
+				$data['error_message'] = '';
+				$this->template->write_view('content','course/booking_confirmed_view', $data);	
+				$this->template->render();
+			}
 		}
-		else{
-			$data['error'] = FALSE;
-			$data['error_message'] = '';
-			$this->template->write_view('content','course/booking_confirmed_view', $data);	
-			$this->template->render();
-		}				
-
+		else
+		{
+			show_404();
+		}
 	}
 	
 	public function create()
@@ -114,7 +121,7 @@ class Course_controller extends CI_Controller {
 		$this->load->library('form_validation');
 	
 		$this->form_validation->set_rules('subject', 'Fach', 'trim|required|alpha');
-		$this->form_validation->set_rules('name', 'Name', 'trim|required|max_length[50]');
+		$this->form_validation->set_rules('name', 'Name', 'trim|required|max_length[40]');
 		//$this->form_validation->set_rules('date_from', 'Datum Von', 'trim|required|date');
 		//$this->form_validation->set_rules('date_to', 'Datum Bis', 'trim|required|date');
 		$this->form_validation->set_rules('cost', 'Kosten', 'trim|required|numeric');
@@ -166,6 +173,23 @@ class Course_controller extends CI_Controller {
 		$day = substr($pDate,8,2);
 		$dateFormat = $day.'.'.$month.'.'.$year;
 		return $dateFormat;
+	}
+	
+	function participant_list($pCourseNo)
+	{
+		$this->load->model('User_model');	
+		$data['Course_Info'] = $this->Course_model->get_course_detail($pCourseNo);
+		if ($data['Course_Info']['queryUserInstructorNo'] != $this->session->userdata('userNo'))
+		{
+			show_404();
+			exit;
+		}
+		$data['Course_Entry'] = $this->Course_model->get_participants($pCourseNo);
+		foreach ($data['Course_Entry'] as $course_entry):
+			$data['Participant_Info'][$course_entry['User_No']] = $this->User_model->get_user_data($course_entry['User_No']);	
+		endforeach;					
+		$this->template->write_view('content','course/participant_list_view', $data);
+		$this->template->render();
 	}
 }
 

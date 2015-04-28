@@ -2,13 +2,13 @@
 <br />
 <table>
 	<tr>
-		<td>Sch&uuml;ler-Nr.</td>
-		<td>Vorname</td>
-		<td>Nachname</td>
-		<td>E-Mail</td>
-		<td>Klasse</td>
-		<td>Akzeptieren</td>
-		<td>Ablehnen</td>
+		<td><b>Sch&uuml;ler-Nr.</b></td>
+		<td><b>Vorname</b></td>
+		<td><b>Nachname</b></td>
+		<td><b>E-Mail</b></td>
+		<td><b>Klasse</b></td>
+		<td><b>Akzeptieren</b></td>
+		<td><b>Ablehnen</b></td>
 	</tr>
 <?php
 foreach($newUsersList as $User):		
@@ -32,15 +32,15 @@ endforeach;
 <br />
 <table>
 	<tr>
-		<td>Kurs-Nr</td>
-		<td>Kursname</td>
-		<td>Fach</td>
-		<td>Anbieter-Vorname</td>
-		<td>Anbieter-Nachname</td>
-		<td>Anbieter-Klasse</td>
-		<td>Vorschau</td>
-		<td>Akzeptieren</td>
-		<td>Ablehnen</td>
+		<td><b>Kurs-Nr</b></td>
+		<td><b>Kursname</b></td>
+		<td><b>Fach</b></td>
+		<td><b>Anbieter-Vorname</b></td>
+		<td><b>Anbieter-Nachname</b></td>
+		<td><b>Anbieter-Klasse</b></td>
+		<td><b>Vorschau</b></td>
+		<td><b>Akzeptieren</b></td>
+		<td><b>Ablehnen</b></td>
 	</tr>
 <?php
 foreach($newCourseList as $Course):		

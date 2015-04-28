@@ -19,7 +19,7 @@ class Admin_controller extends CI_Controller {
 			
 			if ($this->session->userdata('admin') == FALSE)
 			{
-				header('Location: '.base_url().'/index.php/course');
+				header('Location: '.base_url());
 				exit;
 			}
 			

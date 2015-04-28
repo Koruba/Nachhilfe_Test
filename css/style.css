@@ -198,6 +198,7 @@ ul.art-vmenu a
    font-size: 20px;
    font-family: 'Trebuchet MS', Arial, Helvetica, Sans-Serif;
    text-transform: uppercase;
+   color: #575756;
 }
 
 
@@ -2932,4 +2933,10 @@ h2.CourseInfoH2
 {
 	line-height: 0.0;
 	color: #0B1D5B;
+}
+div.CourseName 
+{
+	text-overflow: clip;
+	text-overflow: ellipsis;
+	text-overflow: "…";
 }

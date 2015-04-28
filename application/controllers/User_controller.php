@@ -131,8 +131,12 @@ class User_controller extends CI_Controller{
 	function show_user_details()
 	{
 		$this->load->model('Course_model');	
-		$data['Course_Entries'] = $this->Course_model->get_course_entries($this->session->userdata('userNo'));
-		$data['User_Courses'] = $this->Course_model->get_courses_by_user();	
+		$data['Booked_Courses'] = $this->Course_model->get_course_entries($this->session->userdata('userNo'));
+		$data['User_Courses'] = $this->Course_model->get_courses_by_user();
+		foreach ($data['User_Courses'] as $User_Course): 
+			$data['Entry_Count'][$User_Course['No']] = $this->Course_model->count_course_entries($User_Course['No']);
+		endforeach;
+		$data['Course_Entries'] = '';
 		$this->template->write_view('navigation', 'templates/navigation_template_user.php');					
 		$this->template->write_view('content','user/user_details_view', $data);
 		$this->template->render();
