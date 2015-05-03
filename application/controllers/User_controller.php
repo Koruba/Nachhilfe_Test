@@ -36,16 +36,12 @@ class User_controller extends CI_Controller{
 		
 		if ($this->form_validation->run() == FALSE)
 		{
-			//echo "Fehler aufgetreten";
-		 //	Es gibt Fehler bei der Validierung, wurde nicht gestartet.
-			//$this->load->view('view_register', $this->view_data);
 			$this->template->write_view('navigation', 'templates/navigation_template_register.php');
 			$this->template->write_view('content','user/register_view', $data);
 			$this->template->render();			
 		} 
 		else
 		{
-			// Alles ist in Ordnung, schreibe Daten in die Datenbank
 			$email = $this->input->post('email');
 			$firstname = $this->input->post('firstname');			
 			$lastname = $this->input->post('lastname');
@@ -55,9 +51,9 @@ class User_controller extends CI_Controller{
 			$data['email'] = $email;
 			
 			$this->User_model->register_user($email, $firstname, $lastname, $class, $password);
-			$this->template->write_view('content', 'course/registration_success_view', $data);
-			$this->template->render();
-			
+			$this->template->write_view('navigation', 'templates/navigation_template_register.php');
+			$this->template->write_view('content', 'user/registration_success_view', $data);
+			$this->template->render();		
 		}		
 	}
 	
@@ -69,22 +65,21 @@ class User_controller extends CI_Controller{
 		$this->template->render();	
 	}
 	
-	function loginerror()
+	function loginerror($pErrorCode)
 	{
-		$data['error'] = "E-Mail oder Passwort falsch.";
-		$this->template->write_view('navigation', 'templates/navigation_template_login.php');	
-		$data['error'] = "Die eingegebene E-Mail oder das Passwort ist falsch.";	
-		$this->template->write_view('content','user/login_view', $data);	
-		$this->template->render();	
-	}
-	
-	function accountNotAccepted()
-	{
-		$data['error'] = "Der Account wurde noch nicht freigeschaltet.";	
+		if ($pErrorCode == 1)
+		{		
+			$data['error'] = "Die eingegebene E-Mail oder das Passwort ist falsch.";	
+		}
+		if ($pErrorCode == 2)
+		{		
+			$data['error'] = "Der Account wurde noch nicht freigeschaltet.";	
+		}
+		$this->template->write_view('navigation', 'templates/navigation_template_login.php');
 		$this->template->write_view('content','user/login_view', $data);	
 		$this->template->render();
 	}
-	
+
 	function setUserLogin()
 	{
 		 $email = $this->input->post('E_Mail_Address');
@@ -106,7 +101,7 @@ class User_controller extends CI_Controller{
 		{
 			if ($result['Permission'] == '') 
 			{
-				header('Location: '.base_url().'/index.php/user/accountNotAccepted');
+				header('Location: '.base_url().'/index.php/user/loginerror/2');
 				exit;
 			}
 			if ($result['Permission'] == 'Normal') {
@@ -129,15 +124,19 @@ class User_controller extends CI_Controller{
 		}
 		else
 		{
-			header('Location: '.base_url().'/index.php/user/loginerror');
+			header('Location: '.base_url().'index.php/user/loginerror/1');
 		}
 	}
 	
 	function show_user_details()
 	{
 		$this->load->model('Course_model');	
-		$data['Course_Entries'] = $this->Course_model->get_course_entries($this->session->userdata('userNo'));
-		$data['User_Courses'] = $this->Course_model->get_courses_by_user();	
+		$data['Booked_Courses'] = $this->Course_model->get_course_entries($this->session->userdata('userNo'));
+		$data['User_Courses'] = $this->Course_model->get_courses_by_user();
+		foreach ($data['User_Courses'] as $User_Course): 
+			$data['Entry_Count'][$User_Course['No']] = $this->Course_model->count_course_entries($User_Course['No']);
+		endforeach;
+		$data['Course_Entries'] = '';
 		$this->template->write_view('navigation', 'templates/navigation_template_user.php');					
 		$this->template->write_view('content','user/user_details_view', $data);
 		$this->template->render();

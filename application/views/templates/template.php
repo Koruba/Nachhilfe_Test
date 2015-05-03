@@ -19,9 +19,6 @@
 	
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	
-	<script type="text/javascript" src="code.jquery.com/jquery-1.10.2.js"></script>
-	<script type="text/javascript" src="code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	
 	 <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	
 <?php 
@@ -48,7 +45,7 @@ echo $head
 			<div class="art-shapes">
 				<div style="width:1000px; margin:0 auto;">
 					<h1 class="art-headline"><a href="#">Nachhilfe</a></h1>
-					<h2 class="art-slogan">Nachhilfe von und fuer Schueler des technischen Gymnasiums</h2>
+					<h2 class="art-slogan">Nachhilfe von und f&uuml;r Sch&uuml;ler des technischen Gymnasiums</h2>
 					<h2 class="art-subslogan"><?php echo $schulname ?></h2>
 				</div>
 			</div>

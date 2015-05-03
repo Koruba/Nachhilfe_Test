@@ -1,7 +1,6 @@
-<h1>Folgenden Sch&uuml;ler akzeptieren:</h1>
+<h1>Folgenden Sch&uuml;ler ablehnen:</h1>
 <br />
-<p>M&ouml;chten Sie wirklich den folgenden Sch&uuml;ler akzeptieren?</p>
-<p>Der entsprechende Sch&uuml;ler erh&auml;lt die Rechte, Nachhilfekurse anzubieten und anzunehmen.</p>
+<p>M&ouml;chten Sie wirklich den folgenden Sch&uuml;ler ablehnen?</p>
 <table>
 	<tr>
 		<td>Sch&uuml;ler-Nummer</td>
@@ -19,10 +18,10 @@
 <br />
 <br />
 <?php
-echo form_open('admin/accepteduser/'.$User_Data['No']);
+echo form_open('admin/dismisseduser/'.$User_Data['No']);
 echo form_hidden('UserNo', $User_Data['No']);
 ?>
-<input type="submit" class="button accept center" value="Schüler akzeptieren">
+<input type="submit" class="button dismiss center" value="Schüler ablehnen">
 <?php
 echo form_close();
 ?>

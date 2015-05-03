@@ -1,0 +1,1 @@
+<h1>Der <?php echo $type; ?> wurde erfolgreich abgelehnt</h1>
