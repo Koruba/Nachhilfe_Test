@@ -28,4 +28,7 @@
 <br />
 <form>
 	<input type="button" value="Buchen" onclick="window.location.href='<?php echo base_url().'index.php/course/confirmation/'.$course_detail['queryCourseNo']; ?>'">
+	<br />
+	<br />
+	<input type="button" value="PDF drucken" onclick="window.location.href='<?php echo base_url().'index.php/course/create_pdf'; ?>'">
 </form>

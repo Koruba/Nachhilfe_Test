@@ -142,5 +142,5 @@ class User_controller extends CI_Controller{
 		$this->template->write_view('content','user/user_details_view', $data);
 		$this->template->render();
 	}
-	   
-}
+	
+	}
